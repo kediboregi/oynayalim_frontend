@@ -59,6 +59,7 @@ export default class Oyunlar extends React.Component {
 	deleteOyun = (oyun) => {
 		deleteOyun(oyun).then((data) => {
 			//this.props.delOyun(oyun)
+			this.getOyunlar()
 		});
 	};
 

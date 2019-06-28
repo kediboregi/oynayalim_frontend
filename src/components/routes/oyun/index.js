@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Redirect } from 'react-router'
 
 import SkorItem from './skor-item';
 import SkorList from './skor-list';
@@ -73,7 +74,8 @@ export default class Oyun extends React.Component {
 	deleteOyun = () => {
 		let oyun = this.state.oyun;
 		deleteOyun({id: oyun.id}).then((data) => {
-			window.location = '/oyunlar'
+			//window.location = '/oyunlar'
+			<Redirect to="/"/>
 		});
 	};
 
