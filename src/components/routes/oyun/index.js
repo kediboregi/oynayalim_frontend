@@ -45,7 +45,8 @@ export default class Oyun extends React.Component {
 			oyun: false,
 			oyuncuDialog: false,
 			skorDialog: false,
-			silDialog: false
+			silDialog: false,
+			loading: false
 		};
 
 		let id = this.props.match.params.id;
@@ -61,11 +62,12 @@ export default class Oyun extends React.Component {
 	}
 
 	getOyun = (id, callback) => {
+		this.setState({ loading: true });
 		getOyun(id).then((doyun) => {
 			if (doyun.status === "error") {
-				this.setState({ status: "error", message: doyun.message });
+				this.setState({ status: "error", message: doyun.message, loading: false });
 			} else {
-				this.setState({ oyun: doyun });
+				this.setState({ oyun: doyun, loading: false });
 				typeof callback === 'function' && callback()
 			}
 		});
@@ -136,7 +138,13 @@ export default class Oyun extends React.Component {
 		return (
 			isLoggedIn() ? (
 				<Container fixed>
-					{this.state.oyun ? (
+					{this.state.loading ? (
+						<Grid container={true} alignItems="stretch" justify="space-evenly" direction="row" >
+							<Grid container justify="center" direction="row" >
+								<Typography variant="p">Yükleniyor</Typography>
+							</Grid>
+						</Grid>
+					) : (
 						<Box>
 							<Dialog open={this.state.silDialog}>
 								<DialogTitle>Sil</DialogTitle>
@@ -171,27 +179,20 @@ export default class Oyun extends React.Component {
 							</Grid>
 
 							<Box mt={1}>
-							{this.state.oyun.oyuncular.length > 0 ? (
-								<Grid container spacing={3} justify="center" direction="row" >
-								{this.state.oyun.oyuncular.map((oyuncu, i) => (
-									<SkorItem key={oyuncu.id} oyuncu={oyuncu} postSkor={this.postSkor}/>
-								))}
-								</Grid>
-							) : (
-								<Grid container justify="center" direction="row" >
-									<Typography variant="p">Burası Boş</Typography>
-								</Grid>
-							)}
+								{this.state.oyun.oyuncular ? (
+								this.state.oyun.oyuncular.length > 0 ? (
+									<Grid container spacing={3} justify="center" direction="row" >
+									{this.state.oyun.oyuncular.map((oyuncu, i) => (
+										<SkorItem key={oyuncu.id} oyuncu={oyuncu} postSkor={this.postSkor}/>
+									))}
+									</Grid>
+								) : (
+									<Grid container justify="center" direction="row" >
+										<Typography variant="p">Burası Boş</Typography>
+									</Grid>
+								)) : ('')}
 							</Box>
 						</Box>
-					) : (
-						<Grid container={true} alignItems="stretch" justify="space-evenly" direction="row" >
-							{this.state.status == "error" ? ( this.state.message ) : (
-								<Grid container justify="center" direction="row" >
-									<Typography variant="p">Yükleniyor</Typography>
-								</Grid>
-							)}
-						</Grid>
 					)}
 				</Container>
 			) : ( '' )

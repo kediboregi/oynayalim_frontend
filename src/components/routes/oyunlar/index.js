@@ -24,6 +24,7 @@ export default class Oyunlar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			oyunlar: [],
 			ad: "",
 			oyunDialog: false,
 			loading: false
@@ -40,11 +41,18 @@ export default class Oyunlar extends React.Component {
 
 	getOyunlar = () => {
 		this.setState({loading: true})
-		getOyunlar().then((oyunlar) => {
+		getOyunlar().then((data) => {
 			/*oyunlar.map(oyun => (
 				this.props.addOyun(oyun)
 			));*/
-			this.setState({ oyunlar: oyunlar, loading: false });
+			if (data.status){
+				if (data.message === "not_found"){
+					this.setState({ oyunlar: [], loading: false });
+				}
+			} else {
+				this.setState({ oyunlar: data, loading: false });
+			}
+
 		});
 	};
 
@@ -104,20 +112,19 @@ export default class Oyunlar extends React.Component {
 								<Typography variant="p">Yükleniyor</Typography>
 							</Grid>
 						) : (
-							<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
-							{this.state.oyunlar.length > 0 ? (
+							this.state.oyunlar.length > 0 ? (
+								<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
 								{this.state.oyunlar.map(oyun => (
 									<Grid item key={oyun.id} xs={6} md={3}>
 										<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
 									</Grid>
-
 								))}
+								</Grid>
 							) : (
 								<Grid container justify="center" direction="row" >
 									<Typography variant="p">Burası Boş</Typography>
 								</Grid>
-							)}
-							</Grid>
+							)
 						)}
 					</Grid>
 				</Container>
