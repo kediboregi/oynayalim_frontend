@@ -58,10 +58,17 @@ export default class Oyunlar extends React.Component {
 
 	postOyun = () => {
 		let oyun = {ad: this.state.inputOyunAd}
-		postOyun(oyun).then((oyun) => {
+		postOyun(oyun).then((doyun) => {
 			//this.props.addOyun(oyun)
 			this.setState({ ad: '' });
-			this.getOyunlar();
+
+			this.setState(state => {
+				const oyunlar = [...state.oyunlar, doyun]
+				return {
+					oyunlar: oyunlar
+				};
+			})
+			//this.getOyunlar();
 			this.closeOyunDialog();
 		});
 	};
@@ -69,7 +76,13 @@ export default class Oyunlar extends React.Component {
 	deleteOyun = (oyun) => {
 		deleteOyun(oyun).then((data) => {
 			//this.props.delOyun(oyun)
-			this.getOyunlar()
+			this.setState(state => {
+				const oyunlar = state.oyunlar.filter((item, i) => data.id !== item.id);
+				return {
+					oyunlar: oyunlar
+				};
+			})
+			//this.getOyunlar()
 		});
 	};
 

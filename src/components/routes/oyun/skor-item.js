@@ -39,7 +39,7 @@ export default class SkorItem extends React.Component {
 				<Paper border={1}>
 					<Box py={1} px={2}>
 						<Typography color="primary" variant="subtitle2">{ oyuncu.ad }</Typography>
-						<SkorList skorlar={oyuncu.skorlar} />
+						<SkorList skorlar={oyuncu.skorlar} deleteSkor={this.state.deleteSkor} />
 						<SkorAdd oyuncu={oyuncu} postSkor={this.state.postSkor} />
 						{oyuncu.toplam > 0 ? (
 							<Box>

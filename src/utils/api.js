@@ -42,8 +42,8 @@ function postSkor(data) {
 }
 
 function deleteSkor(data) {
-	const url = `${BASE_URL}/oyun/skor`;
-	return axios.delete(url, {id: data.id}, { headers: { accessToken: `${getAccessToken()}` }}).then(response => response.data);
+	const url = `${BASE_URL}/oyun/skor/` + data.id;
+	return axios.delete(url, { headers: { accessToken: `${getAccessToken()}` }}).then(response => response.data);
 }
 
 /*function getCelebrityData() {

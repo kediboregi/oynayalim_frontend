@@ -82,7 +82,13 @@ export default class Oyun extends React.Component {
 	postOyuncu = () => {
 		let oyun = this.state.oyun;
 		postOyuncu({ oyun_id: oyun.id, ad: this.state.inputOyuncuAd }).then((doyuncu) => {
-			this.getOyun(oyun.id);
+			//this.getOyun(oyun.id);
+			this.setState(state => {
+				state.oyun.oyuncular = state.oyun.oyuncular = [...state.oyun.oyuncular, doyuncu]
+				return {
+					oyun: state.oyun
+				};
+			})
 			this.setState({ inputOyuncuAd: '' });
 			this.closeOyuncuDialog()
 		});
@@ -111,10 +117,19 @@ export default class Oyun extends React.Component {
 		});
 	};
 
-	deleteSkor = (skor) => {
+	deleteSkor = (id) => {
 		let oyun = this.state.oyun;
-		deleteSkor({id: skor.id}).then((dskor) => {
-			this.getOyun(oyun.id);
+		deleteSkor({id: id}).then((dskor) => {
+			this.setState(state => {
+				const oyun = state.oyun.oyuncular.map((oyuncu, i) => {
+					oyuncu.skorlar = oyuncu.skorlar.filter((skor, y) => skor.id !== dskor.id)
+					return state.oyun
+				})
+				return {
+					oyun: oyun[0]
+				};
+			})
+			//this.getOyun(oyun.id);
 		});
 	};
 
@@ -191,7 +206,7 @@ export default class Oyun extends React.Component {
 								this.state.oyun.oyuncular.length > 0 ? (
 									<Grid container spacing={3} justify="center" direction="row" >
 									{this.state.oyun.oyuncular.map((oyuncu, i) => (
-										<SkorItem key={oyuncu.id} oyuncu={oyuncu} postSkor={this.postSkor}/>
+										<SkorItem key={oyuncu.id} oyuncu={oyuncu} postSkor={this.postSkor} deleteSkor={this.deleteSkor}/>
 									))}
 									</Grid>
 								) : (
