@@ -27,7 +27,7 @@ export default class Oyunlar extends React.Component {
 			oyunlar: [],
 			ad: "",
 			oyunDialog: false,
-			loading: false
+			loading: true
 		};
     }
 
@@ -106,27 +106,25 @@ export default class Oyunlar extends React.Component {
 					<Grid container={true} alignItems="baseline" justify="center" direction="row" >
 						<Button onClick={this.openOyunDialog}>oyun ekle</Button>
 					</Grid>
-					<Grid>
-						{this.state.loading ? (
-							<Grid container justify="center" direction="row" >
-								<Typography variant="p">Yükleniyor</Typography>
+					{this.state.loading ? (
+						<Grid container justify="center" direction="row" >
+							<Typography variant="body1">Yükleniyor</Typography>
+						</Grid>
+					) : (
+						this.state.oyunlar.length > 0 ? (
+							<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
+							{this.state.oyunlar.map(oyun => (
+								<Grid item key={oyun.id} xs={6} md={3}>
+									<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
+								</Grid>
+							))}
 							</Grid>
 						) : (
-							this.state.oyunlar.length > 0 ? (
-								<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
-								{this.state.oyunlar.map(oyun => (
-									<Grid item key={oyun.id} xs={6} md={3}>
-										<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
-									</Grid>
-								))}
-								</Grid>
-							) : (
-								<Grid container justify="center" direction="row" >
-									<Typography variant="p">Burası Boş</Typography>
-								</Grid>
-							)
-						)}
-					</Grid>
+							<Grid container justify="center" direction="row" >
+								<Typography variant="body1">Burası Boş</Typography>
+							</Grid>
+						)
+					)}
 				</Container>
 			) : (
 				''

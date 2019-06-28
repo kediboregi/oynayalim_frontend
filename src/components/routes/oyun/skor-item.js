@@ -34,7 +34,6 @@ export default class SkorItem extends React.Component {
 		oyuncu.skorlar.map((skor, ii) => (
 			oyuncu.toplam = +skor.deger+oyuncu.toplam
 		))
-		console.log(oyuncu)
 		return (
 			<Grid item>
 				<Paper border={1}>

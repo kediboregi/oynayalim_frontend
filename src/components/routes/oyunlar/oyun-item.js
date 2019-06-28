@@ -48,7 +48,7 @@ export default class OyunItem extends React.Component {
 						))}
 					</CardContent>
 				) : ('')}
-				<CardActions disableActionSpacing>
+				<CardActions>
 					<IconButton href={`/oyun/${ this.props.oyun.id }`} size="small"><ForwardIcon /></IconButton>
 					<IconButton onClick={this.remove} size="small"><ClearIcon /></IconButton>
 				</CardActions>

@@ -46,15 +46,13 @@ export default class Oyun extends React.Component {
 			oyuncuDialog: false,
 			skorDialog: false,
 			silDialog: false,
-			loading: false
+			loading: true
 		};
-
-		let id = this.props.match.params.id;
-		this.getOyun(id);
     }
 
 	componentDidMount() {
-
+		let id = this.props.match.params.id;
+		this.getOyun(id);
 	}
 
 	componentWillUnmount() {
@@ -141,7 +139,7 @@ export default class Oyun extends React.Component {
 					{this.state.loading ? (
 						<Grid container={true} alignItems="stretch" justify="space-evenly" direction="row" >
 							<Grid container justify="center" direction="row" >
-								<Typography variant="p">Yükleniyor</Typography>
+								<Typography variant="body1">Yükleniyor</Typography>
 							</Grid>
 						</Grid>
 					) : (
@@ -188,7 +186,7 @@ export default class Oyun extends React.Component {
 									</Grid>
 								) : (
 									<Grid container justify="center" direction="row" >
-										<Typography variant="p">Burası Boş</Typography>
+										<Typography variant="body1">Burası Boş</Typography>
 									</Grid>
 								)) : ('')}
 							</Box>
