@@ -75,7 +75,7 @@ export default class Oyun extends React.Component {
 		let oyun = this.state.oyun;
 		deleteOyun({id: oyun.id}).then((data) => {
 			//window.location = '/oyunlar'
-			<Redirect to="/"/>
+			this.state.redirect = "/"
 		});
 	};
 
@@ -130,6 +130,9 @@ export default class Oyun extends React.Component {
 	};
 
 	render() {
+		if (this.state.redirect) {
+			return <Redirect to=redirect />;
+		}
 		return (
 			isLoggedIn() ? (
 				<Container fixed>
