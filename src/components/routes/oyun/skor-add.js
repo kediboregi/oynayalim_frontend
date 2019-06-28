@@ -19,11 +19,14 @@ export default class SkorAdd extends React.Component {
 		this.setState({...this.state, oyuncu, postSkor})
 	}
 
+	componentWillUnmount() {
+
+	}
+
 	_handleKeyDown = (e) => {
     	if (e.key === 'Enter') {
 			this.state.postSkor(this.props.oyuncu, this.state.inputSkor, () => (
-				this.setState({ edit: false }),
-				console.log(this.state.edit)
+				this.setState({ edit: false })
 			))
     	}
 		if (e.key === 'Escape') {
@@ -34,12 +37,12 @@ export default class SkorAdd extends React.Component {
 	render() {
 		return (
 			<Box>
-			{this.state.edit ? (
-					<TextField label="Skor" type="number" name="inputSkor" onKeyDown={this._handleKeyDown} onChange={ (e) => this.setState({ [e.target.name]: +e.target.value }) }/>
-				) : (
-					<IconButton onClick={ () => (this.setState({ edit: true })) } color="secondary" size="small" aria-label="Add"><AddIcon/></IconButton>
-				)
-			}
+				{this.state.edit ? (
+						<TextField label="Skor" type="number" name="inputSkor" onKeyDown={this._handleKeyDown} onChange={ (e) => this.setState({ [e.target.name]: +e.target.value }) }/>
+					) : (
+						<IconButton onClick={ () => (this.setState({ edit: true })) } color="secondary" size="small" aria-label="Add"><AddIcon/></IconButton>
+					)
+				}
 			</Box>
 		);
 	}

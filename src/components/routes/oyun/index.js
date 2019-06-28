@@ -81,7 +81,6 @@ export default class Oyun extends React.Component {
 
 	postOyuncu = () => {
 		let oyun = this.state.oyun;
-		console.log({ oyun_id: oyun.id, ad: this.state.inputOyuncuAd })
 		postOyuncu({ oyun_id: oyun.id, ad: this.state.inputOyuncuAd }).then((doyuncu) => {
 			this.getOyun(oyun.id);
 			this.setState({ inputOyuncuAd: '' });
@@ -91,11 +90,22 @@ export default class Oyun extends React.Component {
 
 	postSkor = (oyuncu, inputSkor, callback) => {
 		let oyun = this.state.oyun;
-		//postSkor({oyun_id: oyun.id, oyuncu_id: this.state.oyuncuid, deger: this.state.inputSkor}).then((dskor) => {
 		postSkor({oyun_id: oyun.id, oyuncu_id: oyuncu.id, deger: inputSkor}).then((dskor) => {
-			this.getOyun(oyun.id, () => (
+			this.setState(state => {
+				const oyunlar = state.oyun.oyuncular.map((oyuncu, i) => {
+					if (oyuncu.id === dskor.oyuncu_id) {
+						oyuncu.skorlar = [...oyuncu.skorlar, dskor]
+					}
+					return state.oyun
+				})
+				return {
+					oyun: oyunlar[0]
+				};
+			})
+			typeof callback === 'function' && callback()
+			/*this.getOyun(oyun.id, () => (
 				typeof callback === 'function' && callback()
-			))
+			))*/
 			//this.setState({ inputSkor: '' });
 			//this.closeSkorDialog()
 		});
