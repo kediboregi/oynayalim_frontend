@@ -6,7 +6,7 @@ import SkorList from './skor-list';
 import SkorAdd from './skor-add';
 
 import { getOyun, deleteOyun, postSkor, deleteSkor, postOyuncu } from '../../../utils/api';
-import { login, logout, isLoggedIn } from '../../../utils/authservice';
+import { login, logout, isLoggedIn, getAccessToken } from '../../../utils/authservice';
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -162,7 +162,7 @@ export default class Oyun extends React.Component {
 							</Grid>
 						</Grid>
 					) : (
-						isLoggedIn() ? (
+						isLoggedIn() || this.state.oyun.user_uuid === getAccessToken() ? (
 						<Box>
 							<Dialog open={this.state.silDialog}>
 								<DialogTitle>Sil</DialogTitle>
