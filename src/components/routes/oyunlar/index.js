@@ -38,17 +38,18 @@ export default class Oyunlar extends React.Component {
 	}
 
 	getOyunlar = () => {
-		this.setState({loading: true})
+		this.props.loadingHandler(true);
 		getOyunlar().then((data) => {
 			/*oyunlar.map(oyun => (
 				this.props.addOyun(oyun)
 			));*/
+			this.props.loadingHandler(false);
 			if (data.status){
 				if (data.message === "not_found"){
-					this.setState({ oyunlar: [], loading: false });
+					this.setState({ oyunlar: [] });
 				}
 			} else {
-				this.setState({ oyunlar: data, loading: false });
+				this.setState({ oyunlar: data });
 			}
 
 		});
@@ -56,7 +57,9 @@ export default class Oyunlar extends React.Component {
 
 	postOyun = () => {
 		let oyun = {ad: this.state.inputOyunAd}
+		this.props.loadingHandler(true);
 		postOyun(oyun).then((doyun) => {
+			this.props.loadingHandler(false);
 			//this.props.addOyun(oyun)
 			this.setState({ ad: '' });
 
@@ -72,7 +75,9 @@ export default class Oyunlar extends React.Component {
 	};
 
 	deleteOyun = (oyun) => {
+		this.props.loadingHandler(true);
 		deleteOyun(oyun).then((data) => {
+			this.props.loadingHandler(false);
 			//this.props.delOyun(oyun)
 			this.setState(state => {
 				const oyunlar = state.oyunlar.filter((item, i) => data.id !== item.id);
@@ -119,24 +124,18 @@ export default class Oyunlar extends React.Component {
 						<Button onClick={this.openOyunDialog}>oyun ekle</Button>
 					</Grid>
 
-					{this.state.loading ? (
-						<Grid container justify="center" direction="row" >
-							<Typography variant="body1">Yükleniyor</Typography>
+					{this.state.oyunlar.length > 0 ? (
+						<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
+						{this.state.oyunlar.map(oyun => (
+							<Grid item key={oyun.id} xs={6} md={3}>
+								<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
+							</Grid>
+						))}
 						</Grid>
 					) : (
-						this.state.oyunlar.length > 0 ? (
-							<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
-							{this.state.oyunlar.map(oyun => (
-								<Grid item key={oyun.id} xs={6} md={3}>
-									<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
-								</Grid>
-							))}
-							</Grid>
-						) : (
-							<Grid container justify="center" direction="row" >
-								<Typography variant="body1">Burası Boş</Typography>
-							</Grid>
-						)
+						<Grid container justify="center" direction="row" >
+							<Typography variant="body1">Burası Boş</Typography>
+						</Grid>
 					)}
 				</Container>
 			) : (

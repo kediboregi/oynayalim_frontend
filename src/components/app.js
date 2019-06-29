@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { login, logout, isLoggedIn } from '../utils/authservice';
 
+import Loading from './loading';
 import Drawer from './drawer';
 import Header from './header';
 //import Home from './routes/home';
@@ -54,12 +55,17 @@ const styles = theme => ({
 class App extends React.Component {
 	constructor() {
 		super();
-		this.state = { side: false, cCc: false };
+		this.state = { side: false, cCc: false, loading: true };
 	}
 
 	toggleDrawer = (open) => () => {
 		this.setState({ ...this.state, open: open });
 	};
+
+	loadingHandler = (loading) => {
+		this.setState({loading: loading });
+		console.log(loading)
+	}
 
 	login = () => {
 		login(() => (
@@ -89,9 +95,10 @@ class App extends React.Component {
 					<Header login={this.login} logout={this.logout} handler={this.toggleDrawer} />
 					<Drawer handler={this.toggleDrawer} open={this.state.open} />
 					<div className={classes.root}>
+						<Loading loading={this.state.loading} />
 						{/*<Route path="/" exact component={Home} />*/}
-						<Route path="/" exact component={Oyunlar} />
-						<Route path="/oyun/:id" component={Oyun} />
+						<Route path="/" exact render={(props) => <Oyunlar {...props} loadingHandler={this.loadingHandler} />} />
+						<Route path="/oyun/:id" render={(props) => <Oyun {...props} loadingHandler={this.loadingHandler} />} />
 					</div>
 				</Router>
 			</MuiThemeProvider>
