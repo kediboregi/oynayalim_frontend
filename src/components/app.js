@@ -1,9 +1,9 @@
 import React from 'react';
 import 'typeface-roboto';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { login, logout, isLoggedIn } from '../utils/authservice';
+import { login, logout } from '../utils/authservice';
 
 import Loading from './loading';
 import Drawer from './drawer';
@@ -13,8 +13,8 @@ import Oyunlar from './routes/oyunlar';
 import Oyun from './routes/oyun';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
+//import purple from '@material-ui/core/colors/purple';
+//import green from '@material-ui/core/colors/green';
 import indigo from '@material-ui/core/colors/indigo';
 import pink from '@material-ui/core/colors/pink';
 import red from '@material-ui/core/colors/red';
@@ -55,7 +55,11 @@ const styles = theme => ({
 class App extends React.Component {
 	constructor() {
 		super();
-		this.state = { side: false, cCc: false, loading: true };
+		this.state = {
+			side: false,
+			logged: false,
+			loading: false
+		};
 	}
 
 	toggleDrawer = (open) => () => {
@@ -64,18 +68,17 @@ class App extends React.Component {
 
 	loadingHandler = (loading) => {
 		this.setState({loading: loading });
-		console.log(loading)
 	}
 
-	login = () => {
+	loginHandler = () => {
 		login(() => (
-			this.setState({cCc: true})
+			this.setState({logged: true})
 		))
 	}
 
-	logout = () => {
+	logoutHandler = () => {
 		logout(() => (
-			this.setState({cCc: false})
+			this.setState({logged: false})
 		))
 	}
 
@@ -92,13 +95,13 @@ class App extends React.Component {
 		return (
 			<MuiThemeProvider theme={theme}>
 				<Router>
-					<Header login={this.login} logout={this.logout} handler={this.toggleDrawer} />
+					<Header logoutHandler={this.logoutHandler} loginHandler={this.loginHandler} handler={this.toggleDrawer} />
 					<Drawer handler={this.toggleDrawer} open={this.state.open} />
 					<div className={classes.root}>
 						<Loading loading={this.state.loading} />
 						{/*<Route path="/" exact component={Home} />*/}
-						<Route path="/" exact render={(props) => <Oyunlar {...props} loadingHandler={this.loadingHandler} />} />
-						<Route path="/oyun/:id" render={(props) => <Oyun {...props} loadingHandler={this.loadingHandler} />} />
+						<Route path="/" exact render={(props) => <Oyunlar {...props} logged={this.state.logged} loadingHandler={this.loadingHandler} />} />
+						<Route path="/oyun/:id" render={(props) => <Oyun {...props} logged={this.state.logged} loadingHandler={this.loadingHandler} />} />
 					</div>
 				</Router>
 			</MuiThemeProvider>

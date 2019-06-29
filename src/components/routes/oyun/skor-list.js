@@ -1,8 +1,6 @@
 import React from 'react';
 
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
@@ -22,7 +20,7 @@ export default class SkorList extends React.Component {
 		return (
 			<Box>
 				{this.state.skorlar.map((skor, ii) => (
-					this.state.skorlar.length == +ii+1 ? ( skor.divider=true ) : ( skor.divider=false ),
+					//this.state.skorlar.length === +ii+1 ? ( skor.divider=true ) : ( skor.divider=false ),
 					<Box key={skor.id} pb={skor.divider ? (1) : (0)}>
 						<Typography variant="body1">
 							{this.state.deleteSkor ? (

@@ -44,11 +44,11 @@ function _getAccessToken() {
 	}
 }
 
-function clearAccessToken() {
+/*function clearAccessToken() {
 	if (typeof window !== "undefined") {
 		localStorage.removeItem(ACCESS_TOKEN_KEY);
 	}
-}
+}*/
 
 function setAccessToken(accessToken) {
 	if (typeof window !== "undefined") {
@@ -75,7 +75,7 @@ function setLogged() {
 }
 
 export function isLoggedIn() {
-	return getLogged() == 'true' ? true : false;
+	return getLogged() === 'true' ? true : false;
 
 	//const accessToken = getAccessToken();
 	//return !!accessToken;
@@ -83,10 +83,10 @@ export function isLoggedIn() {
 }
 
 // Helper function that will allow us to extract the access_token and id_token
-function getParameterByName(name) {
+/*function getParameterByName(name) {
 	let match = RegExp('[#&]' + name + '=([^&]*)').exec(window.location.hash);
 	return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
+}*/
 
 /*function getTokenExpirationDate(encodedToken) {
 	const token = decode(encodedToken);

@@ -1,19 +1,14 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router'
+import { Redirect } from 'react-router'
 
 import SkorItem from './skor-item';
-import SkorList from './skor-list';
-import SkorAdd from './skor-add';
 
 import { getOyun, deleteOyun, postSkor, deleteSkor, postOyuncu } from '../../../utils/api';
-import { login, logout, isLoggedIn, getAccessToken } from '../../../utils/authservice';
+import { isLoggedIn, getAccessToken } from '../../../utils/authservice';
 
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import Fade from '@material-ui/core/Fade';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -21,17 +16,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-
-import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-
-import Fab from '@material-ui/core/Fab';
-import Popover from '@material-ui/core/Popover';
-
-
-import AddIcon from '@material-ui/icons/Add';
-import DeleteIcon from '@material-ui/icons/Delete';
-//import CloseIcon from '@material-ui/icons/';
 
 export default class Oyun extends React.Component {
 
@@ -124,7 +108,7 @@ export default class Oyun extends React.Component {
 	};
 
 	deleteSkor = (id) => {
-		let oyun = this.state.oyun;
+		//let oyun = this.state.oyun;
 		this.props.loadingHandler(true);
 		deleteSkor({id: id}).then((dskor) => {
 			this.props.loadingHandler(false);

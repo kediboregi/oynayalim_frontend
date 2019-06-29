@@ -1,20 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-import { login, logout, isLoggedIn } from '../../utils/authservice';
+//import { isLoggedIn } from '../../utils/authservice';
 
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-class DrawerC extends React.Component {
-	constructor(props) {
+export default class DrawerC extends React.Component {
+	/*constructor(props) {
 		super(props);
-	}
+	}*/
 
 	render() {
 		return (
@@ -35,5 +32,3 @@ class DrawerC extends React.Component {
 		);
 	}
 }
-
-export default DrawerC;

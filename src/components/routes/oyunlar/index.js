@@ -6,7 +6,6 @@ import { getOyunlar, postOyun, deleteOyun } from '../../../utils/api';
 import { isLoggedIn } from '../../../utils/authservice';
 
 import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
@@ -25,9 +24,16 @@ export default class Oyunlar extends React.Component {
 			oyunlar: [],
 			ad: "",
 			oyunDialog: false,
-			loading: true
+			...props
 		};
     }
+
+	componentDidUpdate(oldProps) {
+		const newProps = this.props
+		if(oldProps.logged === false && newProps.logged === true) {
+			this.getOyunlar();
+		}
+	}
 
 	componentDidMount() {
 		this.getOyunlar();
