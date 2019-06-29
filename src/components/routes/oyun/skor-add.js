@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 
 import AddIcon from '@material-ui/icons/Add';
 
-
 export default class SkorAdd extends React.Component {
 	constructor(props){
 		super(props)
@@ -38,11 +37,10 @@ export default class SkorAdd extends React.Component {
 		return (
 			<Box>
 				{this.state.edit ? (
-						<TextField label="Skor" type="number" name="inputSkor" onKeyDown={this._handleKeyDown} onChange={ (e) => this.setState({ [e.target.name]: +e.target.value }) }/>
-					) : (
-						<IconButton onClick={ () => (this.setState({ edit: true })) } color="secondary" size="small" aria-label="Add"><AddIcon/></IconButton>
-					)
-				}
+					<TextField label="Skor" type="number" name="inputSkor" onKeyDown={this._handleKeyDown} onChange={ (e) => this.setState({ [e.target.name]: +e.target.value }) }/>
+				) : (
+					<IconButton onClick={ () => (this.setState({ edit: true })) } color="secondary" size="small" aria-label="Add"><AddIcon/></IconButton>
+				)}
 			</Box>
 		);
 	}

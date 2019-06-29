@@ -42,9 +42,9 @@ export default class OyunItem extends React.Component {
 				</CardHeader>
 				{this.props.oyun.oyuncular.length > 0 ? (
 					<CardContent>
-						<Typography component="p">Oyuncular</Typography>
+						<Typography component="h2">Oyuncular</Typography>
 						{this.props.oyun.oyuncular.map((oyuncu, i) => (
-							<Typography key={ i } component="p">{ oyuncu.ad } { this.skorlariTopla(oyuncu.skorlar) }</Typography>
+							<Typography key={ i } component="h2">{ oyuncu.ad } { this.skorlariTopla(oyuncu.skorlar) }</Typography>
 						))}
 					</CardContent>
 				) : ('')}

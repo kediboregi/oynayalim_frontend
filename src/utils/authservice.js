@@ -13,7 +13,7 @@ export function login() {
 
 export function logout() {
 	clearAccessToken();
-	window.location.href = "/";
+	window.location.href = "/"
 }
 
 export function getAccessToken() {

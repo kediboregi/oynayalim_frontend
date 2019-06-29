@@ -1,4 +1,5 @@
 import React from 'react';
+import 'typeface-roboto';
 
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -38,13 +39,16 @@ const theme = createMuiTheme({
 });
 
 const styles = theme => ({
-  root: {
-    paddingTop: theme.spacing(1),
-	margin: theme.spacing(0)
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
+	root: {
+		paddingTop: theme.spacing(1),
+		margin: theme.spacing(0)
+	},
+	button: {
+		margin: theme.spacing(1),
+	},
+	input: {
+		width: '10px',
+	}
 });
 
 class App extends React.Component {

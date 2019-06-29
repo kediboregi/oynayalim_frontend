@@ -4,8 +4,9 @@ import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
-import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 
 export default class SkorList extends React.Component {
 	constructor(props){
@@ -23,8 +24,12 @@ export default class SkorList extends React.Component {
 				{this.state.skorlar.map((skor, ii) => (
 					this.state.skorlar.length == +ii+1 ? ( skor.divider=true ) : ( skor.divider=false ),
 					<Box key={skor.id} pb={skor.divider ? (1) : (0)}>
-						<IconButton onClick={ () => this.state.deleteSkor(skor.id) } color="secondary" size="small" aria-label="Add"><AddIcon/></IconButton>
-						{ skor.deger }
+						<Typography variant="body1">
+							{this.state.deleteSkor ? (
+								<IconButton onClick={ () => this.state.deleteSkor(skor.id) } color="secondary" size="small" aria-label="Add"><RemoveIcon/></IconButton>
+							) : ('')}
+							{skor.deger}
+						</Typography>
 					</Box>
 				))}
 			</Box>

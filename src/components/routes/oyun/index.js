@@ -12,19 +12,13 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
-import GridList from '@material-ui/core/GridList';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
@@ -159,7 +153,7 @@ export default class Oyun extends React.Component {
 			return <Redirect to={this.state.redirect} />;
 		}
 		return (
-			isLoggedIn() ? (
+
 				<Container fixed>
 					{this.state.loading ? (
 						<Grid container={true} alignItems="stretch" justify="space-evenly" direction="row" >
@@ -168,6 +162,7 @@ export default class Oyun extends React.Component {
 							</Grid>
 						</Grid>
 					) : (
+						isLoggedIn() ? (
 						<Box>
 							<Dialog open={this.state.silDialog}>
 								<DialogTitle>Sil</DialogTitle>
@@ -203,22 +198,44 @@ export default class Oyun extends React.Component {
 
 							<Box mt={1}>
 								{this.state.oyun.oyuncular ? (
-								this.state.oyun.oyuncular.length > 0 ? (
-									<Grid container spacing={3} justify="center" direction="row" >
-									{this.state.oyun.oyuncular.map((oyuncu, i) => (
-										<SkorItem key={oyuncu.id} oyuncu={oyuncu} postSkor={this.postSkor} deleteSkor={this.deleteSkor}/>
-									))}
-									</Grid>
-								) : (
-									<Grid container justify="center" direction="row" >
-										<Typography variant="body1">Burası Boş</Typography>
-									</Grid>
-								)) : ('')}
+									this.state.oyun.oyuncular.length > 0 ? (
+										<Grid container spacing={1} justify="center" direction="row" >
+										{this.state.oyun.oyuncular.map((oyuncu, i) => (
+											<SkorItem key={oyuncu.id} oyuncu={oyuncu} postSkor={this.postSkor} deleteSkor={this.deleteSkor}/>
+										))}
+										</Grid>
+									) : (
+										<Grid container justify="center" direction="row" >
+											<Typography variant="body1">Burası Boş</Typography>
+										</Grid>
+									)
+								) : ('')}
 							</Box>
 						</Box>
+						) : (
+						<Box>
+							<Grid container={true} alignItems="baseline" justify="center" direction="row" >
+								<Typography variant="h5">{ this.state.oyun.ad }</Typography>
+							</Grid>
+							<Box mt={1}>
+								{this.state.oyun.oyuncular ? (
+									this.state.oyun.oyuncular.length > 0 ? (
+										<Grid container spacing={1} justify="center" direction="row" >
+										{this.state.oyun.oyuncular.map((oyuncu, i) => (
+											<SkorItem key={oyuncu.id} oyuncu={oyuncu}/>
+										))}
+										</Grid>
+									) : (
+										<Grid container justify="center" direction="row" >
+											<Typography variant="body1">Burası Boş</Typography>
+										</Grid>
+									)
+								) : ('')}
+							</Box>
+						</Box>
+						)
 					)}
 				</Container>
-			) : ( '' )
 		);
 	}
 

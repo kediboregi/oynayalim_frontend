@@ -9,8 +9,6 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -116,9 +114,11 @@ export default class Oyunlar extends React.Component {
 					<Grid container={true} alignItems="baseline" justify="center" direction="row" >
 						<Typography variant="h5">Oyunlar</Typography>
 					</Grid>
+
 					<Grid container={true} alignItems="baseline" justify="center" direction="row" >
 						<Button onClick={this.openOyunDialog}>oyun ekle</Button>
 					</Grid>
+
 					{this.state.loading ? (
 						<Grid container justify="center" direction="row" >
 							<Typography variant="body1">Yükleniyor</Typography>
