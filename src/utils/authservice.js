@@ -4,19 +4,28 @@ import { getLogin } from './api';
 const ACCESS_TOKEN_KEY = 'accessToken';
 const LOGGED_KEY = 'logged';
 
-export function login() {
-	getLogin().then((data) => {
-		setAccessToken(data["accessToken"]);
+export function login(callback) {
+	if (_getAccessToken()){
 		setLogged();
-		window.location.href = "/"
-	});
+		//window.location.href = "/"
+		typeof callback === 'function' && callback()
+	} else {
+		getLogin().then((data) => {
+			setAccessToken(data["accessToken"]);
+			setLogged();
+			//window.location.href = "/"
+			typeof callback === 'function' && callback()
+		});
+	}
+
 	return true;
 }
 
-export function logout() {
+export function logout(callback) {
 	//clearAccessToken();
 	setLogout();
-	window.location.href = "/"
+	typeof callback === 'function' && callback()
+	//window.location.href = "/"
 }
 
 export function getAccessToken() {
@@ -24,8 +33,14 @@ export function getAccessToken() {
 		if (isLoggedIn()) {
 			return localStorage.getItem(ACCESS_TOKEN_KEY);
 		} else {
-			return null;
+			return false;
 		}
+	}
+}
+
+function _getAccessToken() {
+	if (typeof window !== "undefined") {
+		return localStorage.getItem(ACCESS_TOKEN_KEY);
 	}
 }
 
@@ -60,8 +75,7 @@ function setLogged() {
 }
 
 export function isLoggedIn() {
-	const logged = getLogged();
-	return !!logged;
+	return getLogged() == 'true' ? true : false;
 
 	//const accessToken = getAccessToken();
 	//return !!accessToken;

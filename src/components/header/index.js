@@ -47,9 +47,9 @@ class Header extends React.Component {
 					}
 					{
 						isLoggedIn() ? (
-							<Button color="inherit" onClick={() => logout()}>Çıkış</Button>
+							<Button color="inherit" onClick={this.props.logout}>Çıkış</Button>
 						) : (
-							<Button color="inherit" onClick={() => login()} color="secondary">Giriş</Button>
+							<Button color="inherit" onClick={this.props.login} color="secondary">Giriş</Button>
 						)
 					}
 				</Toolbar>

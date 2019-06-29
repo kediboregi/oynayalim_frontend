@@ -162,7 +162,9 @@ export default class Oyun extends React.Component {
 							</Grid>
 						</Grid>
 					) : (
-						isLoggedIn() || this.state.oyun.user_uuid === getAccessToken() ? (
+						isLoggedIn() && this.state.oyun.user_uuid === getAccessToken() ? (
+						console.log(this.state.oyun.user_uuid),
+						console.log(getAccessToken()),
 						<Box>
 							<Dialog open={this.state.silDialog}>
 								<DialogTitle>Sil</DialogTitle>

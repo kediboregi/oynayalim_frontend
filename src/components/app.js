@@ -54,12 +54,24 @@ const styles = theme => ({
 class App extends React.Component {
 	constructor() {
 		super();
-		this.state = { side: false };
+		this.state = { side: false, cCc: false };
 	}
 
 	toggleDrawer = (open) => () => {
 		this.setState({ ...this.state, open: open });
 	};
+
+	login = () => {
+		login(() => (
+			this.setState({cCc: true})
+		))
+	}
+
+	logout = () => {
+		logout(() => (
+			this.setState({cCc: false})
+		))
+	}
 
 	componentDidMount() {
 
@@ -74,7 +86,7 @@ class App extends React.Component {
 		return (
 			<MuiThemeProvider theme={theme}>
 				<Router>
-					<Header handler={this.toggleDrawer} />
+					<Header login={this.login} logout={this.logout} handler={this.toggleDrawer} />
 					<Drawer handler={this.toggleDrawer} open={this.state.open} />
 					<div className={classes.root}>
 						{/*<Route path="/" exact component={Home} />*/}
