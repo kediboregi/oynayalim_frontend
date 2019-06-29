@@ -35,9 +35,9 @@ export default class SkorItem extends React.Component {
 			oyuncu.toplam = +skor.deger+oyuncu.toplam
 		))
 		return (
-			<Grid item>
+			<Grid item xs={3} md={"auto"}>
 				<Paper border={1}>
-					<Box py={1} px={2}>
+					<Box py={1} px={1}>
 						<Typography color="primary" variant="subtitle1">{ oyuncu.ad }</Typography>
 						<SkorList skorlar={oyuncu.skorlar} deleteSkor={this.state.deleteSkor} />
 						{this.state.postSkor ? (

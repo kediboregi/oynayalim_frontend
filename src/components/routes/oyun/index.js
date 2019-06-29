@@ -153,7 +153,6 @@ export default class Oyun extends React.Component {
 			return <Redirect to={this.state.redirect} />;
 		}
 		return (
-
 				<Container fixed>
 					{this.state.loading ? (
 						<Grid container={true} alignItems="stretch" justify="space-evenly" direction="row" >
@@ -188,11 +187,11 @@ export default class Oyun extends React.Component {
 								</DialogActions>
 							</Dialog>
 
-							<Grid container={true} alignItems="baseline" justify="center" direction="row" >
+							<Grid container alignItems="baseline" justify="center" direction="row" >
 								<Typography variant="h5">{ this.state.oyun.ad }</Typography>
 							</Grid>
 
-							<Grid container={true} alignItems="baseline" justify="center" direction="row" >
+							<Grid container alignItems="baseline" justify="center" direction="row" >
 								{ this.state.oyun.bitti ? ( ' / bitti' ) : ('') }
 								<Button onClick={this.openSilDialog}>sil</Button>
 								<Button onClick={this.openOyuncuDialog}>oyuncu ekle</Button>
@@ -216,7 +215,7 @@ export default class Oyun extends React.Component {
 						</Box>
 						) : (
 						<Box>
-							<Grid container={true} alignItems="baseline" justify="center" direction="row" >
+							<Grid container alignItems="baseline" justify="center" direction="row" >
 								<Typography variant="h5">{ this.state.oyun.ad }</Typography>
 							</Grid>
 							<Box mt={1}>
