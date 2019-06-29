@@ -97,8 +97,8 @@ class App extends React.Component {
 				<Router>
 					<Header logoutHandler={this.logoutHandler} loginHandler={this.loginHandler} handler={this.toggleDrawer} />
 					<Drawer handler={this.toggleDrawer} open={this.state.open} />
+					<Loading loading={this.state.loading} />
 					<div className={classes.root}>
-						<Loading loading={this.state.loading} />
 						{/*<Route path="/" exact component={Home} />*/}
 						<Route path="/" exact render={(props) => <Oyunlar {...props} logged={this.state.logged} loadingHandler={this.loadingHandler} />} />
 						<Route path="/oyun/:id" render={(props) => <Oyun {...props} logged={this.state.logged} loadingHandler={this.loadingHandler} />} />

@@ -1,8 +1,7 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import Fade from '@material-ui/core/Fade';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 export default class Loading extends React.Component {
 	constructor(props){
@@ -20,10 +19,8 @@ export default class Loading extends React.Component {
 
 	render() {
 		return (
-			<Fade p={5} in={this.state.loading} unmountOnExit>
-				<Grid container justify="center" direction="row" >
-					<CircularProgress color="secondary" />
-				</Grid>
+			<Fade p={5} in={this.state.loading} timeout={{enter: 0, exit: this.state.loading ? (0) : (2000), }}>
+				<LinearProgress color="secondary" variant="query" />
 			</Fade>
 		);
 	}

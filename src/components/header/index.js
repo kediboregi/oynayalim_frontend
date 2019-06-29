@@ -4,7 +4,6 @@ import React from 'react';
 import { isLoggedIn } from '../../utils/authservice';
 
 import AppBar from '@material-ui/core/AppBar';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -35,14 +34,8 @@ class Header extends React.Component {
 					<IconButton className={classes.menuButton} onClick={this.props.handler(true)} color="inherit" aria-label="Menu"><MenuIcon /></IconButton>
 		            <Typography variant="h6" color="inherit" className={classes.grow}>Oyunlar</Typography>
 			        {/*<Button color="inherit" href="/" >Ev</Button>*/}
-					{isLoggedIn() ? (
-						<Box>
-							<Button color="inherit" href="/" >Oyunlar</Button>
-							<Button color="inherit" onClick={ () => this.props.logoutHandler() }>Çıkış</Button>
-						</Box>
-					) : (
-						<Button color="inherit" onClick={ () => this.props.loginHandler() } color="secondary">Giriş</Button>
-					)}
+					<Button color="inherit" href="/" >Oyunlar</Button>
+					<Button color="inherit" onClick={ () => isLoggedIn() ? ( this.props.logoutHandler() ) : (this.props.loginHandler()) }>{ isLoggedIn() ? ( 'Çıkış' ) : ( 'Giriş' ) }</Button>
 				</Toolbar>
 			</AppBar>
 		);
