@@ -231,7 +231,7 @@ export default class Oyun extends React.Component {
 				<Grid container justify="center" direction="row" >
 					<Typography variant="body1">Burası Boş</Typography>
 				</Grid>
-				))}
+				)}
 			</Container>
 		);
 	}

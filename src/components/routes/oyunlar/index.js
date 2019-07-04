@@ -111,38 +111,40 @@ export default class Oyunlar extends React.Component {
 		return (
 			isLoggedIn() ? (
 				<Container fixed>
-					<Dialog open={ this.state.oyunDialog }>
-						<DialogTitle>Oyun Ekle</DialogTitle>
-						<DialogContent>
-							<TextField type="string" name="inputOyunAd" placeholder="Ad" onChange={ (e) => this.setState({ [e.target.name]: e.target.value }) }/>
-						</DialogContent>
-						<DialogActions>
-							<Button onClick={ () => this.setState({ oyunDialog: false }) }>kapat</Button>
-							<Button onClick={ () => this.postOyun() }>yolla</Button>
-						</DialogActions>
-					</Dialog>
+					{isLoggedIn() ? (
+						<Dialog open={ this.state.oyunDialog }>
+							<DialogTitle>Oyun Ekle</DialogTitle>
+							<DialogContent>
+								<TextField type="string" name="inputOyunAd" placeholder="Ad" onChange={ (e) => this.setState({ [e.target.name]: e.target.value }) }/>
+							</DialogContent>
+							<DialogActions>
+								<Button onClick={ () => this.setState({ oyunDialog: false }) }>kapat</Button>
+								<Button onClick={ () => this.postOyun() }>yolla</Button>
+							</DialogActions>
+						</Dialog>
 
-					<Grid container={true} alignItems="baseline" justify="center" direction="row" >
-						<Typography variant="h5">Oyunlar</Typography>
-					</Grid>
+						<Grid container={true} alignItems="baseline" justify="center" direction="row" >
+							<Typography variant="h5">Oyunlar</Typography>
+						</Grid>
 
-					<Grid container={true} alignItems="baseline" justify="center" direction="row" >
-						<Button onClick={this.openOyunDialog}>oyun ekle</Button>
-					</Grid>
+						<Grid container={true} alignItems="baseline" justify="center" direction="row" >
+							<Button onClick={this.openOyunDialog}>oyun ekle</Button>
+						</Grid>
 
-					{this.state.oyunlar.length > 0 ? (
-						<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
-						{this.state.oyunlar.map(oyun => (
-							<Grid item key={oyun.id} xs={6} md={3}>
-								<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
+						{this.state.oyunlar.length > 0 ? (
+							<Grid container alignItems="baseline" justify="space-evenly" direction="row" spacing={3}>
+							{this.state.oyunlar.map(oyun => (
+								<Grid item key={oyun.id} xs={6} md={3}>
+									<OyunItem key={oyun.id} oyun={oyun} onRemove={this.deleteOyun} />
+								</Grid>
+							))}
 							</Grid>
-						))}
-						</Grid>
-					) : (
-						<Grid container justify="center" direction="row" >
-							<Typography variant="body1">Burası Boş</Typography>
-						</Grid>
-					)}
+						) : (
+							<Grid container justify="center" direction="row" >
+								<Typography variant="body1">Burası Boş</Typography>
+							</Grid>
+						)}
+					) : ('')}
 				</Container>
 			) : (
 				''
