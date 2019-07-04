@@ -46,7 +46,7 @@ export default class Oyun extends React.Component {
 		getOyun(id).then((doyun) => {
 			if (doyun.status === "error") {
 				this.props.loadingHandler(false)
-				this.setState({ status: "error", message: doyun.message });
+				this.setState({ oyun: null, status: doyun.status, message: doyun.message });
 			} else {
 				this.props.loadingHandler(false)
 				this.setState({ oyun: doyun });
@@ -152,6 +152,7 @@ export default class Oyun extends React.Component {
 		}
 		return (
 			<Container fixed>
+				{this.state.oyun ? (
 				<Grid container justify="center" direction="row" >
 					{isLoggedIn() && this.state.oyun.user_uuid === getAccessToken() ? (
 					<Box>
@@ -226,6 +227,11 @@ export default class Oyun extends React.Component {
 					</Box>
 					)}
 				</Grid>
+				) : (
+				<Grid container justify="center" direction="row" >
+					<Typography variant="body1">Burası Boş</Typography>
+				</Grid>
+				))}
 			</Container>
 		);
 	}

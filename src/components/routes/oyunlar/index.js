@@ -52,7 +52,7 @@ export default class Oyunlar extends React.Component {
 			this.props.loadingHandler(false);
 			if (data.status){
 				if (data.message === "not_found"){
-					this.setState({ oyunlar: [] });
+					this.setState({ oyunlar: [], status: data.status, message: data.message  });
 				}
 			} else {
 				this.setState({ oyunlar: data });
